@@ -11,13 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130803180850) do
+ActiveRecord::Schema.define(version: 20130803190105) do
 
   create_table "images", force: true do |t|
     t.text     "s3_key",     null: false
     t.text     "url",        null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "taken_at",   null: false
   end
 
   add_index "images", ["s3_key"], name: "index_images_on_s3_key", unique: true

@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ImageTest < ActiveSupport::TestCase
   setup do
-    @image = Image.new s3_key: 's3-key', url: 'http://example.com/image.jpg'
+    @image = Image.new s3_key: 's3-key', url: 'http://example.com/image.jpg', taken_at: Time.now
   end
 
   test 'should be valid' do
@@ -19,5 +19,11 @@ class ImageTest < ActiveSupport::TestCase
     @image.url = nil
     refute @image.valid?
     assert @image.errors[:url].present?
+  end
+
+  test 'should be invalid without a taken_at' do
+    @image.taken_at = nil
+    refute @image.valid?
+    assert @image.errors[:taken_at].present?
   end
 end

@@ -11,8 +11,9 @@ class S3Downloader
         bucket.objects.each do |object|
           s3_key = object.key
           if s3_key =~ /imageSequence/
-            image = Image.find_or_create_by_s3_key!(s3_key)
-            image.update_attributes!(url: object.url)
+            image = Image.find_or_initialize_by_s3_key(s3_key)
+            taken_at = DateTime.parse(s3_key[/imageSequence_(\d+).jpg/, 1])
+            image.update_attributes!(url: object.url, taken_at: taken_at)
           end
         end
       end
