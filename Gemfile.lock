@@ -27,10 +27,6 @@ GEM
       tzinfo (~> 0.3.37)
     arel (4.0.0)
     atomic (1.1.12)
-    aws-s3 (0.6.3)
-      builder
-      mime-types
-      xml-simple
     builder (3.1.4)
     coffee-rails (4.0.0)
       coffee-script (>= 2.2.0)
@@ -58,6 +54,7 @@ GEM
     minitest (4.7.5)
     multi_json (1.7.7)
     polyglot (0.3.3)
+    proxies (0.2.1)
     rack (1.5.2)
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -77,6 +74,8 @@ GEM
     rake (10.1.0)
     rdoc (3.12.2)
       json (~> 1.4)
+    s3 (0.3.13)
+      proxies (~> 0.2.0)
     sass (3.2.10)
     sass-rails (4.0.0)
       railties (>= 4.0.0.beta, < 5.0)
@@ -108,17 +107,16 @@ GEM
     uglifier (2.1.2)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
-    xml-simple (1.1.2)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  aws-s3
   coffee-rails (~> 4.0.0)
   jbuilder (~> 1.2)
   jquery-rails
   rails (= 4.0.0)
+  s3
   sass-rails (~> 4.0.0)
   sdoc
   sqlite3
