@@ -38,6 +38,10 @@ group :development do
   gem 'dotenv-rails'
 end
 
+group :test do
+  gem 'mocha', require: false
+end
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

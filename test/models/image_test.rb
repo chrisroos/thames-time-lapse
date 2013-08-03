@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ImageTest < ActiveSupport::TestCase
+class ImageValidationTest < ActiveSupport::TestCase
   setup do
     @image = Image.new s3_key: 's3-key', url: 'http://example.com/image.jpg', taken_at: Time.now
   end
@@ -25,5 +25,13 @@ class ImageTest < ActiveSupport::TestCase
     @image.taken_at = nil
     refute @image.valid?
     assert @image.errors[:taken_at].present?
+  end
+end
+
+class ImageTest < ActiveSupport::TestCase
+  test 'returns the latest image' do
+    newer_image = Image.create!(s3_key: 'key-1', url: 'url-1', taken_at: Time.now)
+    older_image = Image.create!(s3_key: 'key-2', url: 'url-2', taken_at: 1.day.ago)
+    assert_equal newer_image, Image.latest
   end
 end
