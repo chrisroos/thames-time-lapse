@@ -18,4 +18,12 @@ class ImagesControllerTest < ActionController::TestCase
     get :show, id: image
     assert_select "img[src='http://example.com/image.jpg']"
   end
+
+  test "show displays the time the picture was taken" do
+    taken_at = Time.zone.now
+    image = Image.new(id: 1, taken_at: taken_at)
+    Image.stubs(:find).returns(image)
+    get :show, id: image
+    assert_select ".taken_at[datetime='#{taken_at.to_datetime.rfc3339}']"
+  end
 end

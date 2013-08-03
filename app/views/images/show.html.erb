@@ -1,1 +1,2 @@
 <%= image_tag @image.url, size: '500x500' %>
+<time class="taken_at" datetime="<%= @image.taken_at.to_datetime.rfc3339 %>"><%= @image.taken_at %></time>
