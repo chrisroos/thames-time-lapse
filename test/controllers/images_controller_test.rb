@@ -14,7 +14,8 @@ class ImagesControllerTest < ActionController::TestCase
   end
 
   test "show displays the image" do
-    image = Image.create!(s3_key: 'unique-key', url: 'http://example.com/image.jpg', taken_at: Time.now)
+    image = Image.new(id: 1, url: 'http://example.com/image.jpg', taken_at: Time.now)
+    Image.stubs(:find).returns(image)
     get :show, id: image
     assert_select "img[src='http://example.com/image.jpg']"
   end
