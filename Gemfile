@@ -7,6 +7,9 @@ gem 'rails', '4.0.0'
 
 gem 'pg'
 
+# As per https://devcenter.heroku.com/articles/rails-integration-gems
+gem 'rails_12factor'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 
