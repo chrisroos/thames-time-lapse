@@ -1,2 +1,7 @@
-<%= image_tag @image.url, size: '500x500' %>
-<time class="taken_at" datetime="<%= @image.taken_at.to_datetime.rfc3339 %>"><%= @image.taken_at %></time>
+<h1>
+  <time class="taken_at" datetime="<%= @image.taken_at.to_datetime.rfc3339 %>">
+    <%= @image.taken_at.strftime('%H:%m') %>
+  </time>
+</h1>
+
+<%= image_tag @image.url, size: '600x450', class: 'img-polaroid' %>
