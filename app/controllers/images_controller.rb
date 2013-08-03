@@ -1,6 +1,10 @@
 class ImagesController < ApplicationController
   def index
-    redirect_to image_path(Image.latest)
+    if image = Image.latest
+      redirect_to image_path(image)
+    else
+      render text: 'No images found'
+    end
   end
 
   def show
