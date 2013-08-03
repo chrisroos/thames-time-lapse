@@ -21,6 +21,6 @@ ActiveRecord::Schema.define(version: 20130803190105) do
     t.datetime "taken_at",   null: false
   end
 
-  add_index "images", ["s3_key"], name: "index_images_on_s3_key", unique: true
+  add_index "images", ["s3_key"], name: "index_images_on_s3_key", unique: true, using: :btree
 
 end
