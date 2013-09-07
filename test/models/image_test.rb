@@ -29,6 +29,14 @@ class ImageValidationTest < ActiveSupport::TestCase
 end
 
 class ImageTest < ActiveSupport::TestCase
+  test 'returns the n most recent images' do
+    oldest_image = Image.create!(s3_key: 'key-1', url: 'url-1', taken_at: 3.weeks.ago)
+    older_image = Image.create!(s3_key: 'key-2', url: 'url-2', taken_at: 2.weeks.ago)
+    newer_image = Image.create!(s3_key: 'key-3', url: 'url-3', taken_at: 1.week.ago)
+    newest_image = Image.create!(s3_key: 'key-4', url: 'url-4', taken_at: Time.now)
+    assert_equal [newest_image, newer_image], Image.most_recent(2)
+  end
+
   test 'returns the latest image' do
     newer_image = Image.create!(s3_key: 'key-1', url: 'url-1', taken_at: Time.now)
     older_image = Image.create!(s3_key: 'key-2', url: 'url-2', taken_at: 1.day.ago)

@@ -4,4 +4,8 @@ class Image < ActiveRecord::Base
   def self.latest
     order('taken_at DESC').limit(1).first
   end
+
+  def self.most_recent(number)
+    order('taken_at DESC').limit(number)
+  end
 end
