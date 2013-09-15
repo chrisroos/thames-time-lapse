@@ -47,7 +47,7 @@ Dir[File.join(directory, '*.jpg')].each do |file|
 end
 
 date = directory[/(\d{4}-\d{2}-\d{2})/, 1]
-combined_output_filename = File.join(output_directory, "#{date}.jpg")
+combined_output_filename = File.join(output_directory, "#{date}-time-slice.jpg")
 input_file_list = images.map { |image| '"' + image + '"' }.join(' ')
 cmd = %%convert #{input_file_list} +append "#{combined_output_filename}"%
 system cmd
