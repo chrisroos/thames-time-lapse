@@ -1,0 +1,18 @@
+<h1>Stats</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <td>Date</td>
+      <td>Images capture</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @image_stats.each do |date, image_count| %>
+      <tr>
+        <td><%= link_to date, day_path(date) %></td>
+        <td><%= image_count %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
