@@ -10,3 +10,9 @@ I'm using this to display images captured from the [LapseIt Pro](https://play.go
     $ heroku addons:add scheduler
     $ heroku addons:open scheduler
     # Add the `rake s3:download_image_information` task to run every 10 minutes
+
+## Creating a time lapse by joining multiple images
+
+The `-f image2` input format allows me to set the `-pattern_type glob` so that I can use the wildcard pattern in the input filename.
+
+    $ ffmpeg -f image2 -pattern_type glob -i "*-time-slice.jpg" thames-time-slice.mp4
