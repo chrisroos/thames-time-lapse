@@ -36,9 +36,10 @@ class S3Downloader
           if s3_key =~ /(\d{4}-\d{2}-\d{2})-(\d{2})-(\d{2})-(\d{2})\.jpg/
             date = $1
             hour, minute, second = $2, $3, $4
-            image = Image.find_or_initialize_by(s3_key: s3_key)
-            taken_at = DateTime.parse("#{date} #{hour}:#{minute}:#{second}")
-            image.update_attributes!(url: object.url, taken_at: taken_at)
+            unless Image.find_by_s3_key(s3_key)
+              taken_at = DateTime.parse("#{date} #{hour}:#{minute}:#{second}")
+              image = Image.create!(s3_key: s3_key, url: object.url, taken_at: taken_at)
+            end
           end
         end
       end
