@@ -8,4 +8,8 @@ class Image < ActiveRecord::Base
   def self.most_recent(number)
     order('taken_at DESC').limit(number)
   end
+
+  def self.taken_on(date)
+    where("DATE(taken_at) = ?", date)
+  end
 end

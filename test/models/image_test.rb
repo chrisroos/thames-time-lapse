@@ -42,4 +42,11 @@ class ImageTest < ActiveSupport::TestCase
     older_image = Image.create!(s3_key: 'key-2', url: 'url-2', taken_at: 1.day.ago)
     assert_equal newer_image, Image.latest
   end
+
+  test 'returns all images for a given date' do
+    image_1 = Image.create!(s3_key: 'key-1', url: 'url-1', taken_at: Date.yesterday)
+    image_2 = Image.create!(s3_key: 'key-2', url: 'url-2', taken_at: Date.today)
+    image_3 = Image.create!(s3_key: 'key-3', url: 'url-3', taken_at: Date.tomorrow)
+    assert_equal [image_2], Image.taken_on(Date.today)
+  end
 end
