@@ -12,7 +12,7 @@ class S3Downloader
           s3_key = object.key
           if s3_key =~ /^_uploads.*\.jpg/
             taken_at = DateTime.parse(s3_key[/imageSequence_(\d+).jpg/, 1])
-            new_key = "images/#{taken_at.to_date}/#{taken_at.strftime('%Y-%m-%d-%H-%M-%S')}.jpg"
+            new_key = "images/#{taken_at.to_date}/original/#{taken_at.strftime('%Y-%m-%d-%H-%M-%S')}.jpg"
             puts "Moving from #{s3_key} to #{new_key}"
             if new_object = object.copy(key: new_key)
               object.destroy
@@ -32,7 +32,7 @@ class S3Downloader
       if bucket = service.buckets.find('thames-time-lapse')
         bucket.objects.each do |object|
           s3_key = object.key
-          next unless s3_key =~ /^images.*\.jpg/
+          next unless s3_key =~ /^images\/\d{4}-\d{2}-\d{2}\/original\/.*\.jpg/
           if s3_key =~ /(\d{4}-\d{2}-\d{2})-(\d{2})-(\d{2})-(\d{2})\.jpg/
             date = $1
             hour, minute, second = $2, $3, $4
