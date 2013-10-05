@@ -12,4 +12,13 @@ class Image < ActiveRecord::Base
   def self.taken_on(date)
     where("DATE(taken_at) = ?", date)
   end
+
+  def self.per_hour(date)
+    where("taken_at IN (
+      SELECT MIN(taken_at) FROM images
+      WHERE DATE(taken_at) = ?
+      GROUP BY DATE_PART('hour', taken_at)
+      ORDER BY DATE_PART('hour', taken_at)
+    )", date)
+  end
 end

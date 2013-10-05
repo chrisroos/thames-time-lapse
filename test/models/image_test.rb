@@ -49,4 +49,12 @@ class ImageTest < ActiveSupport::TestCase
     image_3 = Image.create!(s3_key: 'key-3', url: 'url-3', taken_at: Date.tomorrow)
     assert_equal [image_2], Image.taken_on(Date.today)
   end
+
+  test 'returns the earliest image for each hour of the given date' do
+    image_1 = Image.create!(s3_key: 'key-1', url: 'url-1', taken_at: '2013-01-01 09:00:00')
+    image_2 = Image.create!(s3_key: 'key-2', url: 'url-2', taken_at: '2013-01-01 09:01:00')
+    image_3 = Image.create!(s3_key: 'key-3', url: 'url-3', taken_at: '2013-01-01 10:00:00')
+    image_4 = Image.create!(s3_key: 'key-4', url: 'url-4', taken_at: '2013-01-01 10:01:00')
+    assert_equal [image_1, image_3], Image.per_hour(Date.parse('2013-01-01'))
+  end
 end
