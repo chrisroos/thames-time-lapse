@@ -4,7 +4,7 @@ class DaysController < ApplicationController
   end
 
   def show
-    @date = Date.parse(params[:date])
-    @images = Image.per_hour(params[:date])
+    @date = Date.parse(params[:id])
+    @images = Image.per_hour(params[:id])
   end
 end

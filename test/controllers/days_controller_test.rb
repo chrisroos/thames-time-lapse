@@ -12,7 +12,7 @@ class DaysControllerTest < ActionController::TestCase
     image_1 = Image.create!(s3_key: 'key-1', url: 'january-1st', taken_at: january_1st)
     image_2 = Image.create!(s3_key: 'key-2', url: 'january-2nd', taken_at: january_2nd)
 
-    get :show, date: '2013-01-01'
+    get :show, id: '2013-01-01'
 
     assert_select "img[src*='january-1st']"
     assert_select "img[src*='january-2nd']", false
