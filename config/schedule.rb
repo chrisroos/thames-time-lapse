@@ -25,4 +25,5 @@ env :PATH, '/usr/local/bin:/usr/bin:/bin'
 
 every 10.minutes do
   runner "move-images.rb"
+  runner "record-image-information.rb"
 end
