@@ -9,4 +9,10 @@ task :update_crontab do
   as_app 'bundle exec whenever --update-crontab'
 end
 
+namespace :deploy do
+  task :restart do
+    as_app 'touch tmp/restart.txt'
+  end
+end
+
 after :deploy, :update_crontab
