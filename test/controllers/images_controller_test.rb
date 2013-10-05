@@ -1,18 +1,6 @@
 require 'test_helper'
 
 class ImagesControllerTest < ActionController::TestCase
-  test "index displays an error message if there are no images" do
-    get :index
-    assert response.body =~ /no images found/i
-  end
-
-  test "index redirects to the latest image" do
-    image = Image.new
-    Image.stubs(:latest).returns(image)
-    get :index
-    assert_redirected_to image_path(image)
-  end
-
   test "index renders an atom feed of the 10 most recent images" do
     created_at = updated_at = taken_at = Time.zone.now
     image = Image.new(id: 123, created_at: created_at, updated_at: updated_at, taken_at: taken_at, url: 'http://example.com/image.png')

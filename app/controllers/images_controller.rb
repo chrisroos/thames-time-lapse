@@ -2,11 +2,8 @@ class ImagesController < ApplicationController
   def index
     respond_to do |format|
       format.html do
-        if image = Image.latest
-          redirect_to image_path(image)
-        else
-          render text: 'No images found'
-        end
+        page = params[:page] || 1
+        @images = Image.order('taken_at DESC').page(page).per(12)
       end
       format.atom do
         @images = Image.most_recent(10)

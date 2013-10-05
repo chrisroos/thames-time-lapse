@@ -1,0 +1,18 @@
+<h1>Latest images</h1>
+
+<%= paginate @images %>
+
+<ul class="thumbnails">
+  <% @images.each do |image| %>
+    <li class="span3">
+      <%= link_to image, class: 'thumbnail' do %>
+        <%= image_tag image.url, class: 'img img-thumbnail', size: '171x180' %>
+        <div class="caption">
+          <%= image.taken_at.strftime('%H:%M') %>
+        </div>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+
+<%= paginate @images %>
