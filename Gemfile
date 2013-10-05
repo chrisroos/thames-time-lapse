@@ -25,6 +25,8 @@ gem 'kaminari'
 
 gem 'recap'
 
+gem 'whenever', require: false
+
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
