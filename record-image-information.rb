@@ -19,7 +19,7 @@ folders.split("\n").each do |folder|
       images.split("\n").each do |image|
         if image =~ /#{s3_base}(.*original.*\.jpg)/
           s3_key = $1
-          image_url = 'http://thames-time-lapse.s3.amazonaws.com' + s3_key
+          image_url = File.join('http://thames-time-lapse.s3.amazonaws.com', s3_key)
           if image_url =~ /(\d{4}-\d{2}-\d{2})-(\d{2})-(\d{2})-(\d{2})\.jpg/
             date = $1
             hour, minute, second = $2, $3, $4
