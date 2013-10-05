@@ -4,7 +4,7 @@ s3_base = 's3://thames-time-lapse/'
 image_directory = 'images/'
 
 latest_image = Image.order('taken_at DESC').first
-latest_date = latest_image.taken_at.to_date
+latest_date = latest_image ? latest_image.taken_at.to_date : Date.parse('2013-01-01')
 
 folders = `s3cmd ls #{File.join(s3_base, image_directory)}`
 folders.split("\n").each do |folder|
