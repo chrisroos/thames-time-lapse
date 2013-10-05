@@ -1,5 +1,14 @@
 <h1><%= @date.to_s(:long_ordinal) %></h1>
 
+<ul class="pager">
+  <li class="previous">
+    <%= link_to @previous_day.to_s(:long_ordinal), day_path(@previous_day) %>
+  </li>
+  <li class="next">
+    <%= link_to @next_day.to_s(:long_ordinal), day_path(@next_day) %>
+  </li>
+</ul>
+
 <ul class="thumbnails">
   <% @images.each do |image| %>
     <li class="span3">

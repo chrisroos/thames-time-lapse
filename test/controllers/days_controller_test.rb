@@ -17,4 +17,22 @@ class DaysControllerTest < ActionController::TestCase
     assert_select "img[src*='january-1st']"
     assert_select "img[src*='january-2nd']", false
   end
+
+  test 'links to the previous day' do
+    current_day = '2013-01-02'
+    previous_day = '2013-01-01'
+
+    get :show, id: current_day
+
+    assert_select ".previous a[href='#{day_path(previous_day)}']"
+  end
+
+  test 'links to the next day' do
+    current_day = '2013-01-01'
+    next_day = '2013-01-02'
+
+    get :show, id: current_day
+
+    assert_select ".next a[href='#{day_path(next_day)}']"
+  end
 end
