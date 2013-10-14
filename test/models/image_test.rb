@@ -29,6 +29,12 @@ class ImageValidationTest < ActiveSupport::TestCase
 end
 
 class ImageTest < ActiveSupport::TestCase
+  test 'returns the number of days of images' do
+    earliest_image = Image.create!(taken_at: 30.days.ago, s3_key: 'key-1', url: 'url-1')
+    latest_image = Image.create!(taken_at: 10.days.ago, s3_key: 'key-2', url: 'url-2')
+    assert_equal 20, Image.number_of_days
+  end
+
   test 'returns the n most recent images' do
     oldest_image = Image.create!(s3_key: 'key-1', url: 'url-1', taken_at: 3.weeks.ago)
     older_image = Image.create!(s3_key: 'key-2', url: 'url-2', taken_at: 2.weeks.ago)

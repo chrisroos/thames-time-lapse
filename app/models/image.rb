@@ -1,6 +1,12 @@
 class Image < ActiveRecord::Base
   validates :s3_key, :url, :taken_at, presence: true
 
+  def self.number_of_days
+    earliest_image_taken_at = Image.order(taken_at: :asc).first.taken_at
+    latest_image_taken_at = Image.order(taken_at: :desc).first.taken_at
+    (latest_image_taken_at.to_date - earliest_image_taken_at.to_date).to_i
+  end
+
   def self.latest
     order('taken_at DESC').limit(1).first
   end
