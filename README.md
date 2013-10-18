@@ -11,6 +11,14 @@ I'm using this to display images captured from the [LapseIt Pro](https://play.go
     $ heroku addons:open scheduler
     # Add the `rake s3:download_image_information` task to run every 10 minutes
 
+## Embedding the taken at timestamp in the image
+
+    $ ruby add-caption-to-image.rb \
+      ~/path/to/2013-10-18-09-08-03.jpg \
+      ./latest.jpg \
+      "`ruby print-taken-at.rb \
+      ~/path/to/2013-10-18-09-08-03.jpg`"
+
 ## Creating a time lapse by joining multiple images
 
 The `-f image2` input format allows me to set the `-pattern_type glob` so that I can use the wildcard pattern in the input filename.
