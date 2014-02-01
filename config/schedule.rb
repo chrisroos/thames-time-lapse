@@ -24,6 +24,6 @@ set :output, '/home/thames-time-lapse/app/log/cron.log'
 env :PATH, '/usr/local/bin:/usr/bin:/bin'
 
 every 10.minutes do
-  runner "script/move-images.rb"
-  runner "script/record-image-information.rb"
+  command 'cd /home/thames-time-lapse/app && bin/rails runner -e production script/move-images.rb'
+  command 'cd /home/thames-time-lapse/app && bin/rails runner -e production script/record-image-information.rb'
 end
