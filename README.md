@@ -129,8 +129,11 @@ The `-f image2` input format allows me to set the `-pattern_type glob` so that I
         ServerName thames-time-lapse.chrisroos.co.uk
         DocumentRoot /home/thames-time-lapse/app/public
         <Directory /home/thames-time-lapse/app/public>
+            # If Apache version < 2.4
             Allow from all
             Options -MultiViews
+            # If Apache version >= 2.4
+            Require all granted
         </Directory>
     </VirtualHost>
 
