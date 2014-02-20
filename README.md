@@ -142,3 +142,15 @@ The `-f image2` input format allows me to set the `-pattern_type glob` so that I
 
     # Restart Apache
     $ sudo service apache2 reload
+
+## Database dump and restore
+
+    # Create a database dump on the server
+    $ pg_dump --host="localhost" --username="thames_time_lapse" --format=tar thames_time_lapse | gzip > ./tmp/thames_time_lapse.sql.gz
+
+    # Download the database dump
+    $ scp thames-time-lapse.chrisroos.co.uk:/home/thames-time-lapse/app/tmp/thames_time_lapse.sql.gz ./tmp/
+
+    # Restore the database locally
+    $ gunzip ./tmp/thames_time_lapse.sql.gz
+    $ pg_restore --clean --no-owner --dbname="thames_time_lapse_development" ./tmp/thames_time_lapse.sql
