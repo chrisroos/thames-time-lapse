@@ -1,5 +1,8 @@
 require 'date'
 
+started_at = Time.now
+puts "Started at: #{started_at}"
+
 def run(cmd)
   p cmd
   `#{cmd}`
@@ -51,3 +54,8 @@ uploads.split("\n").each do |upload|
     run "rm #{new_filename}"
   end
 end
+
+finished_at = Time.now
+puts "Finished at: #{finished_at}"
+
+puts "Duration: #{finished_at - started_at} seconds"
