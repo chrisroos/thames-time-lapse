@@ -4,6 +4,9 @@ def log(string)
   puts "(#{File.basename(__FILE__)}) #{string}"
 end
 
+started_at = Time.now
+log "Started at: #{started_at}"
+
 s3_base = 's3://thames-time-lapse/'
 image_directory = 'images/'
 
@@ -38,3 +41,8 @@ folders.split("\n").each do |folder|
     end
   end
 end
+
+finished_at = Time.now
+log "Finished at: #{finished_at}"
+
+log "Duration: #{finished_at - started_at} seconds"
