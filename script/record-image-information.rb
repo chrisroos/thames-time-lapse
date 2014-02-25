@@ -1,5 +1,9 @@
 require 'date'
 
+def log(string)
+  puts "(#{File.basename(__FILE__)}) #{string}"
+end
+
 s3_base = 's3://thames-time-lapse/'
 image_directory = 'images/'
 
@@ -12,9 +16,9 @@ folders.split("\n").each do |folder|
     folder_url = $1
     date = $2
     if Date.parse(date) < latest_date
-      # puts "Ignoring: #{folder_url}"
+      # log "Ignoring: #{folder_url}"
     else
-      puts "Processing: #{folder_url}"
+      log "Processing: #{folder_url}"
       images = `s3cmd ls --recursive #{folder_url}`
       images.split("\n").each do |image|
         if image =~ /#{s3_base}(.*original.*\.jpg)/
@@ -26,7 +30,7 @@ folders.split("\n").each do |folder|
             unless Image.find_by_s3_key(s3_key)
               taken_at = DateTime.parse("#{date} #{hour}:#{minute}:#{second}")
               image = Image.create!(s3_key: s3_key, url: image_url, taken_at: taken_at)
-              puts "Created image with key: #{s3_key}"
+              log "Created image with key: #{s3_key}"
             end
           end
         end
