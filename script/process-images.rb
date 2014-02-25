@@ -1,12 +1,16 @@
 require 'date'
 
-started_at = Time.now
-puts "Started at: #{started_at}"
+def log(string)
+  puts "(#{File.basename(__FILE__)}) #{string}"
+end
 
 def run(cmd)
-  p cmd
+  log cmd
   `#{cmd}`
 end
+
+started_at = Time.now
+log "Started at: #{started_at}"
 
 s3_base = 's3://thames-time-lapse'
 upload_directory = '_uploads'
@@ -22,7 +26,7 @@ uploads.split("\n").each do |upload|
     new_key = "images/#{taken_at.to_date}/original/#{taken_at.strftime('%Y-%m-%d-%H-%M-%S')}.jpg"
     new_url = File.join(s3_base, new_key)
 
-    puts "Moving from #{old_url} to #{new_url}"
+    log "Moving from #{old_url} to #{new_url}"
 
     cmd = "s3cmd mv #{old_url} #{new_url}"
 
@@ -56,6 +60,6 @@ uploads.split("\n").each do |upload|
 end
 
 finished_at = Time.now
-puts "Finished at: #{finished_at}"
+log "Finished at: #{finished_at}"
 
-puts "Duration: #{finished_at - started_at} seconds"
+log "Duration: #{finished_at - started_at} seconds"
