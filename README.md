@@ -104,7 +104,7 @@ Before settling on using the binary from gusari.org, I tried a version from jon-
     # Add export PATH=~/bin:$PATH to the bottom of the file
 
     # Use the binary of ffmpeg.
-    $ curl http://ffmpeg.gusari.org/static/64bit/ffmpeg.static.64bit.2014-02-20.tar.gz > ffmpeg.tar.gz
+    $ curl http://ffmpeg.gusari.org/static/64bit/ffmpeg.static.64bit.latest.tar.gz > ffmpeg.tar.gz
     $ tar -xzf ffmpeg.tar.gz
     $ rm ffmpeg.tar.gz
     $ mv ffmpeg ~/bin/
