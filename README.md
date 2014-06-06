@@ -1,5 +1,11 @@
 I'm using this to display images captured from the [LapseIt Pro](https://play.google.com/store/apps/details?id=com.ui.LapseItPro&hl=en) app running on my Samsung Galaxy S2. The images are automatically uploaded to S3 using [FolderSync](https://play.google.com/store/apps/details?id=dk.tacit.android.foldersync.full&hl=en).
 
+## Other infomation about this project
+
+* [Thames time lapse on Trello](https://trello.com/b/lgEc0ano/thames-time-lapse)
+* My work notes are in [Fargo](http://thamestimelapse.smallpict.com/)
+* There's some data in [Google Drive](https://drive.google.com/folderview?id=0B1Vm0OBha2n1MHV4NVRXc1F1blU&usp=sharing)
+
 ## Deploying to Heroku
 
     # Configure AWS
