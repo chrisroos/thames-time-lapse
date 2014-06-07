@@ -172,7 +172,7 @@ Before settling on using the binary from gusari.org, I tried a version from jon-
 ## Database dump and restore
 
     # Create a database dump on the server
-    $ pg_dump --host="localhost" --username="thames_time_lapse" --format=tar thames_time_lapse | gzip > ./tmp/thames_time_lapse.sql.gz
+    thames-time-lapse$ pg_dump --host="localhost" --username="thames_time_lapse" --format=tar thames_time_lapse | gzip > ./tmp/thames_time_lapse.sql.gz
 
     # Download the database dump
     $ scp thames-time-lapse.chrisroos.co.uk:/home/thames-time-lapse/app/tmp/thames_time_lapse.sql.gz ./tmp/
