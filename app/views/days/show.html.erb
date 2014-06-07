@@ -13,7 +13,7 @@
   <% @images.each do |image| %>
     <li class="span3">
       <%= link_to image, class: 'thumbnail' do %>
-        <%= image_tag image.url, class: 'img img-thumbnail', size: '171x180' %>
+        <%= image_tag image.thumbnail_url, class: 'img img-thumbnail', size: '200x150' %>
         <div class="caption">
           <%= image.taken_at.strftime('%H:%M') %>
         </div>

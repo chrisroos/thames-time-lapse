@@ -63,4 +63,10 @@ class ImageTest < ActiveSupport::TestCase
     image_4 = Image.create!(s3_key: 'key-4', url: 'url-4', taken_at: '2013-01-01 10:01:00')
     assert_equal [image_1, image_3], Image.per_hour(Date.parse('2013-01-01'))
   end
+
+  test 'returns the url of the thumbnail image' do
+    image = Image.new(url: 'http://thames-time-lapse.s3.amazonaws.com/images/2014-06-07/original/2014-06-07-04-00-25.jpg')
+    expected_url = 'http://thames-time-lapse.s3.amazonaws.com/images/2014-06-07/200x150/2014-06-07-04-00-25.200x150.jpg'
+    assert_equal expected_url, image.thumbnail_url
+  end
 end

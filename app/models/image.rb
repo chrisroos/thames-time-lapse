@@ -27,4 +27,8 @@ class Image < ActiveRecord::Base
       ORDER BY DATE_PART('hour', taken_at)
     )", date)
   end
+
+  def thumbnail_url
+    url.sub('original', '200x150').sub('.jpg', '.200x150.jpg')
+  end
 end
