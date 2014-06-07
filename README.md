@@ -76,15 +76,16 @@ The `-f image2` input format allows me to set the `-pattern_type glob` so that I
     $ sudo apt-get install apache2
 
     # Install Phusion Passenger
-    # From http://www.modrails.com/documentation/Users%20guide%20Apache.html#install_on_debian_ubuntu
+    # From https://www.phusionpassenger.com/documentation/Users%20guide%20Apache.html#install_on_debian_ubuntu
     $ gpg --keyserver keyserver.ubuntu.com --recv-keys 561F9B9CAC40B2F7
-    $ gpg --armor --export 561F9B9CAC40B2F7 | sudo apt-key add -
-    $ sudo apt-get install apt-transport-https
-    $ echo 'deb https://oss-binaries.phusionpassenger.com/apt/passenger raring main' | sudo tee /etc/apt/sources.list.d/passenger.list
+    $ sudo apt-get install apt-transport-https ca-certificates
+    $ echo 'deb https://oss-binaries.phusionpassenger.com/apt/passenger trusty main' | sudo tee /etc/apt/sources.list.d/passenger.list
     $ sudo chown root: /etc/apt/sources.list.d/passenger.list
     $ sudo chmod 600 /etc/apt/sources.list.d/passenger.list
     $ sudo apt-get update
     $ sudo apt-get install libapache2-mod-passenger
+    $ sudo a2enmod passenger
+    $ sudo service apache2 restart
 
     # Install Node for Rails asset compilation
     $ sudo apt-get install nodejs
