@@ -50,11 +50,6 @@ uploads.split("\n").each do |upload|
     new_key = "images/#{taken_at.to_date}/original/#{new_filename}"
     new_url = File.join(s3_base, new_key)
 
-    resize_to = '800x600'
-
-    # Create a directory to hold the resized images ready to make a timelapse video
-    run "mkdir -p #{taken_at.to_date}/#{resize_to}"
-
     # Download and remove the image from S3
     run "s3cmd get #{old_url}"
     run "s3cmd del #{old_url}"
@@ -63,8 +58,17 @@ uploads.split("\n").each do |upload|
     run "convert -rotate 180 #{old_filename} #{new_filename}"
     run "s3cmd put #{new_filename} #{new_url}"
 
-    # Resize the image and save locally
-    run "convert -resize #{resize_to} #{new_filename} ./#{taken_at.to_date}/#{resize_to}/#{new_filename}"
+    ['800x600', '200x150'].each do |resize_to|
+      # Create a directory to hold the resized images ready to make a timelapse video
+      run "mkdir -p #{taken_at.to_date}/#{resize_to}"
+
+      # Resize the image and save locally
+      resized_filename = new_filename.sub('.jpg', ".#{resize_to}.jpg")
+      run "convert -resize #{resize_to} #{new_filename} ./#{taken_at.to_date}/#{resize_to}/#{resized_filename}"
+
+      # Put the resized image on S3
+      run "s3cmd put ./#{taken_at.to_date}/#{resize_to}/#{resized_filename} #{s3_base}/images/#{taken_at.to_date}/#{resize_to}/"
+    end
 
     # Remove the original and rotated images from the local disk
     run "rm #{old_filename}"
