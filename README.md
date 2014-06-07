@@ -31,7 +31,7 @@ The `-f image2` input format allows me to set the `-pattern_type glob` so that I
 
     $ ffmpeg -f image2 -pattern_type glob -i "*-time-slice.jpg" thames-time-slice.mp4
 
-## Setting the EC2 instance up
+## Setting up Ubuntu
 
     # Create a user account that I'll login as
     $ sudo adduser chrisroos
@@ -60,9 +60,9 @@ The `-f image2` input format allows me to set the `-pattern_type glob` so that I
     $ sudo apt-get install build-essential libcurl4-openssl-dev libssl-dev zlib1g-dev ruby-dev apache2-threaded-dev libapr1-dev libaprutil1-dev libreadline-dev
 
     # Install ruby
-    $ curl http://cache.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p247.tar.gz -O
-    $ tar -xzf ruby-2.0.0-p247.tar.gz
-    $ cd ruby-2.0.0-p247/
+    $ curl http://cache.ruby-lang.org/pub/ruby/2.1/ruby-2.1.2.tar.gz -O
+    $ tar -xzf ruby-2.1.2.tar.gz
+    $ cd ruby-2.1.2/
     $ ./configure
     $ sudo make install
 
