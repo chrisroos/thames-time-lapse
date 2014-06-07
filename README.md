@@ -105,17 +105,12 @@ The `-f image2` input format allows me to set the `-pattern_type glob` so that I
 
 Before settling on using the binary from gusari.org, I tried a version from jon-severinsson but that seems to be an older version that doesn't support wildcard matching. I also tried to use avconv but that also didn't work with wildcard matching.
 
-    # Create a local bin directory for the thames-time-lapse user
-    $ mkdir ~/bin
-    $ vi ~/.bashrc
-    # Add export PATH=~/bin:$PATH to the bottom of the file
-
     # Use the binary of ffmpeg.
     $ curl http://ffmpeg.gusari.org/static/64bit/ffmpeg.static.64bit.latest.tar.gz > ffmpeg.tar.gz
     $ tar -xzf ffmpeg.tar.gz
     $ rm ffmpeg.tar.gz
-    $ mv ffmpeg ~/bin/
-    $ mv ffprobe ~/bin/
+    $ mv ffmpeg /usr/local/bin/
+    $ mv ffprobe /usr/local/bin/
 
 ## Deploying the app using recap
 
