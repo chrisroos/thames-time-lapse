@@ -34,83 +34,83 @@ The `-f image2` input format allows me to set the `-pattern_type glob` so that I
 ## Setting up Ubuntu
 
     # Create a user account that I'll login as
-    $ sudo adduser chrisroos
-    $ sudo adduser chrisroos sudo
+    root$ sudo adduser chrisroos
+    root$ sudo adduser chrisroos sudo
 
     # Update AWS Route 53 (using the web interface) to give the instance a friendly name
 
     # Copy my ssh public key to the server
     # *NOTE* This is only necessary if you create a new keypair to access this instance
-    $ scp -i ~/Downloads/macbook-air.pem ~/.ssh/id_rsa.pub ubuntu@thames-time-lapse.chrisroos.co.uk:
+    $ scp ~/.ssh/id_rsa.pub root@thames-time-lapse.chrisroos.co.uk:
 
     # Add my ssh public key to authorized_keys
-    $ sudo mkdir /home/chrisroos/.ssh
-    $ sudo mv id_rsa.pub /home/chrisroos/.ssh/authorized_keys
-    $ sudo chown -R chrisroos: /home/chrisroos/.ssh/
-    $ sudo chmod 700 /home/chrisroos/.ssh
-    $ sudo chmod 600 /home/chrisroos/.ssh/authorized_keys
+    root$ sudo mkdir /home/chrisroos/.ssh
+    root$ sudo mv id_rsa.pub /home/chrisroos/.ssh/authorized_keys
+    root$ sudo chown -R chrisroos: /home/chrisroos/.ssh/
+    root$ sudo chmod 700 /home/chrisroos/.ssh
+    root$ sudo chmod 600 /home/chrisroos/.ssh/authorized_keys
 
     # Update packages
-    $ sudo apt-get update
+    chrisroos$ sudo apt-get update
 
     # Install git
-    $ sudo apt-get install git
+    chrisroos$ sudo apt-get install git
 
     # Install pre-requisites for ruby et al
-    $ sudo apt-get install build-essential libcurl4-openssl-dev libssl-dev zlib1g-dev ruby-dev apache2-threaded-dev libapr1-dev libaprutil1-dev libreadline-dev
+    chrisroos$ sudo apt-get install build-essential libcurl4-openssl-dev libssl-dev zlib1g-dev ruby-dev apache2-threaded-dev libapr1-dev libaprutil1-dev libreadline-dev
 
     # Install ruby
-    $ curl http://cache.ruby-lang.org/pub/ruby/2.1/ruby-2.1.2.tar.gz -O
-    $ tar -xzf ruby-2.1.2.tar.gz
-    $ cd ruby-2.1.2/
-    $ ./configure
-    $ sudo make install
+    chrisroos$ curl http://cache.ruby-lang.org/pub/ruby/2.1/ruby-2.1.2.tar.gz -O
+    chrisroos$ tar -xzf ruby-2.1.2.tar.gz
+    chrisroos$ cd ruby-2.1.2/
+    chrisroos$ ./configure
+    chrisroos$ sudo make install
 
     # Install bundler
-    $ sudo gem install bundler
+    chrisroos$ sudo gem install bundler
 
     # Install s3cmd
-    $ sudo apt-get install s3cmd
+    chrisroos$ sudo apt-get install s3cmd
 
     # Install Apache 2
-    $ sudo apt-get install apache2
+    chrisroos$ sudo apt-get install apache2
 
     # Install Phusion Passenger
     # From https://www.phusionpassenger.com/documentation/Users%20guide%20Apache.html#install_on_debian_ubuntu
-    $ gpg --keyserver keyserver.ubuntu.com --recv-keys 561F9B9CAC40B2F7
-    $ sudo apt-get install apt-transport-https ca-certificates
-    $ echo 'deb https://oss-binaries.phusionpassenger.com/apt/passenger trusty main' | sudo tee /etc/apt/sources.list.d/passenger.list
-    $ sudo chown root: /etc/apt/sources.list.d/passenger.list
-    $ sudo chmod 600 /etc/apt/sources.list.d/passenger.list
-    $ sudo apt-get update
-    $ sudo apt-get install libapache2-mod-passenger
-    $ sudo a2enmod passenger
-    $ sudo service apache2 restart
+    chrisroos$ gpg --keyserver keyserver.ubuntu.com --recv-keys 561F9B9CAC40B2F7
+    chrisroos$ sudo apt-get install apt-transport-https ca-certificates
+    chrisroos$ echo 'deb https://oss-binaries.phusionpassenger.com/apt/passenger trusty main' | sudo tee /etc/apt/sources.list.d/passenger.list
+    chrisroos$ sudo chown root: /etc/apt/sources.list.d/passenger.list
+    chrisroos$ sudo chmod 600 /etc/apt/sources.list.d/passenger.list
+    chrisroos$ sudo apt-get update
+    chrisroos$ sudo apt-get install libapache2-mod-passenger
+    chrisroos$ sudo a2enmod passenger
+    chrisroos$ sudo service apache2 restart
 
     # Install Node for Rails asset compilation
-    $ sudo apt-get install nodejs
+    chrisroos$ sudo apt-get install nodejs
 
     # Install postgresql
-    $ sudo apt-get install postgresql
+    chrisroos$ sudo apt-get install postgresql
 
     # Configure database and user
-    $ sudo -u postgres psql
+    chrisroos$ sudo -u postgres psql
     postgres=# create user thames_time_lapse nocreatedb nocreateuser password 'password';
     postgres=# create database thames_time_lapse with owner = thames_time_lapse;
 
     # Install ImageMagick for image manipulation
-    $ sudo apt-get install imagemagick
+    chrisroos$ sudo apt-get install imagemagick
 
 ### Installing ffmpeg to create timelapse movies
 
 Before settling on using the binary from gusari.org, I tried a version from jon-severinsson but that seems to be an older version that doesn't support wildcard matching. I also tried to use avconv but that also didn't work with wildcard matching.
 
     # Use the binary of ffmpeg.
-    $ curl http://ffmpeg.gusari.org/static/64bit/ffmpeg.static.64bit.latest.tar.gz > ffmpeg.tar.gz
-    $ tar -xzf ffmpeg.tar.gz
-    $ rm ffmpeg.tar.gz
-    $ mv ffmpeg /usr/local/bin/
-    $ mv ffprobe /usr/local/bin/
+    chrisroos$ curl http://ffmpeg.gusari.org/static/64bit/ffmpeg.static.64bit.latest.tar.gz > ffmpeg.tar.gz
+    chrisroos$ tar -xzf ffmpeg.tar.gz
+    chrisroos$ rm ffmpeg.tar.gz
+    chrisroos$ sudo mv ffmpeg /usr/local/bin/
+    chrisroos$ sudo mv ffprobe /usr/local/bin/
 
 ## Deploying the app using recap
 
@@ -120,27 +120,32 @@ Before settling on using the binary from gusari.org, I tried a version from jon-
     # Set the DATABASE_URL
     $ cap env:set DATABASE_URL=postgresql://thames_time_lapse:password@localhost/thames_time_lapse
 
-    # Deploy
-    $ cap deploy
-
-    # Configure s3cmd for the thames-time-lapse user
-    $ s3cmd --configure
-
-    # Set the thames-time-lapse user's shell to bash
-    # So that Passenger can pick up environment vars from .bashrc
-    $ sudo chsh -s /bin/bash thames-time-lapse
-
-    # Create a .bashrc that loads the recap environment variables
-    $ sudo su - thames-time-lapse
-    $ echo 'source ~/.recap-env-export' > ~/.bashrc
-
     # Set the AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY using recap
     $ cap env:set AWS_ACCESS_KEY_ID=<your-access-key>
     $ cap env:set AWS_SECRET_ACCESS_KEY=<your-secret-key>
 
+    # Deploy
+    $ cap deploy
+
+    # Set the thames-time-lapse user's shell to bash
+    # So that Passenger can pick up environment vars from .bashrc
+    chrisroos$ sudo chsh -s /bin/bash thames-time-lapse
+
+    # Configure s3cmd for the thames-time-lapse user
+    thames-time-lapse$ s3cmd --configure
+    # Access Key: <ACCESS_KEY_FOR_TIME_LAPSE_S3_USER>
+    # Secret Key: <SECRET_KEY_FOR_TIME_LAPSE_S3_USER>
+    # Encryption password: Leave it blank
+    # Path to GPG program: Accept the default
+    # Use HTTPS protocol [No]: Accept the default
+    # HTTP Proxy server name: Leave it blank
+
+    # Create a .bashrc that loads the recap environment variables
+    thames-time-lapse$ echo 'source ~/.recap-env-export' > ~/.bashrc
+
 ## Configuring apache
 
-    $ sudo vi /etc/apache2/sites-available/thames-time-lapse.chrisroos.co.uk.conf
+    chrisroos$ sudo vi /etc/apache2/sites-available/thames-time-lapse.chrisroos.co.uk.conf
 
     # Save the following apache virtual host configuration
     <VirtualHost *:80>
@@ -159,10 +164,10 @@ Before settling on using the binary from gusari.org, I tried a version from jon-
     </VirtualHost>
 
     # Make the site available to Apache
-    $ sudo a2ensite thames-time-lapse.chrisroos.co.uk.conf
+    chrisroos$ sudo a2ensite thames-time-lapse.chrisroos.co.uk.conf
 
     # Restart Apache
-    $ sudo service apache2 reload
+    chrisroos$ sudo service apache2 reload
 
 ## Database dump and restore
 
