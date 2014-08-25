@@ -29,5 +29,9 @@ every 10.minutes do
 end
 
 every 1.day, at: '1:00 am' do
+  command 'cd /home/thames-time-lapse/app && bin/rails runner -e production script/create-and-upload-timeslice-for-yesterday.rb'
+end
+
+every 1.day, at: '2:00 am' do
   command 'cd /home/thames-time-lapse/app && bin/rails runner -e production script/create-and-upload-video-for-yesterday.rb'
 end
