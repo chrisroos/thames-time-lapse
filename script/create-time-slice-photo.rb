@@ -42,7 +42,6 @@ Dir[File.join(directory, '*.jpg')].each do |file|
       output_filename = File.join(output_directory, "#{File.basename(file)}")
       cmd = %%convert "#{file}" -crop #{segment_width}x#{image_height}+#{x_offset}+#{y_offset} +repage "#{output_filename}"%
       images << output_filename
-      # p cmd
       system cmd
       segment_count += 1
     end
