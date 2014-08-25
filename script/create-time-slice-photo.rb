@@ -31,6 +31,13 @@ images = []
 Dir[File.join(directory, '*.jpg')].each do |file|
   if total_count == 1 or (total_count % step == 0)
     x_offset = (segment_count - 1) * segment_width
+
+    if segment_count == number_of_segments
+      # Adjust the width of the last segment so that the resulting
+      # timeslice image is the same width as the original
+      segment_width = image_width - x_offset
+    end
+
     if x_offset < image_width
       output_filename = File.join(output_directory, "#{File.basename(file)}")
       cmd = %%convert "#{file}" -crop #{segment_width}x#{image_height}+#{x_offset}+#{y_offset} +repage "#{output_filename}"%
