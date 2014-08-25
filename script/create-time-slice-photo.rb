@@ -12,7 +12,7 @@ FileUtils.mkdir_p(output_directory)
 images = Dir.glob(File.join(directory, '*.jpg'))
 number_of_images = images.length
 number_of_segments = 24
-step = number_of_images / (number_of_segments - 0)
+step = number_of_images / number_of_segments
 
 cmd = %%identify "#{images.first}"%
 identify_output = `#{cmd}`
