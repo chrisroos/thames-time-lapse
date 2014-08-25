@@ -28,7 +28,7 @@ segment_count = 1
 
 images = []
 
-Dir[File.join(directory, '*.jpg')].each do |file|
+Dir[File.join(directory, '*.jpg')].sort.each do |file|
   if total_count == 1 or (total_count % step == 0)
     x_offset = (segment_count - 1) * segment_width
 
