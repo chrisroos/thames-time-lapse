@@ -29,8 +29,6 @@ segment_count = 1
 images = []
 
 Dir[File.join(directory, '*.jpg')].each do |file|
-  next unless file =~ /imageSequence/
-
   if total_count == 1 or (total_count % step == 0)
     x_offset = segment_count * segment_width
     if x_offset < image_width
