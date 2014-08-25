@@ -19,7 +19,7 @@ size = '800x600'
 run "ruby script/create-time-slice-photo.rb ./#{date}/#{size}"
 
 # Upload the timeslice to S3
-run %%s3cmd put ./#{date}/#{size}/_time-slices/#{date}-time-slice.jpg s3://thames-time-lapse/images/#{date}/%
+run %%s3cmd put ./#{date}/#{size}/_time-slices/#{date}-time-slice.jpg s3://thames-time-lapse/timeslices/%
 
 finished_at = Time.now
 log "Finished at: #{finished_at}"
